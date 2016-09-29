@@ -14,8 +14,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 server.listen(8080, "127.0.0.1");
 
+
 // socket connect
 io.on('connection', function (socket) {
+  
   console.log('socket is working...');
 
   io.emit('this', { will: 'be received by everyone'});
