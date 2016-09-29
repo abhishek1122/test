@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Socket</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+<div id="yourElement"><h1>Welcom to socket world :)- </h1></div>
+
+
+<div id="rec_msg"></div>
+<a href="#" onclick="send()">send</a>
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+  var socket = io.connect('http://localhost:8080');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+
+
+socket.on('connect', function () {
+socket.emit('hi!');
+socket.emit('private message','msg by client' ,{ msg: 'welcom to socket world server :)' });
+
+console.log('welcom to socket world client :)');
+socket.emit('join', {email: 'abhi@gmail.com'});
+
+socket.on('rec_msg', function (from, msg) {
+console.log('rec_msg');
+//console.log('I received a private message by ', from, ' saying ', msg);
+$('#rec_msg').text(msg);
+$('#rec_msg').addClass('animated bounceInDown');  
+});
+
+
+ socket.on("new_msg", function(data) {
+  alert(data.msg);
+  });
+
+});
+
+
+$(document).ready(function(){
+$('#yourElement').addClass('animated bounceInLeft');
+});
+
+function send(){
+console.log('ddddddddddddd');
+socket.emit('rec_msg','client','lo mai aa gaya');
+}
+
+</script>
+
+
+</html> 
+
+
