@@ -15,35 +15,7 @@ var io = require('socket.io')(server);
 server.listen(8080, "127.0.0.1");
 
 
-// socket connect
-io.on('connection', function (socket) {
-  
-  console.log('socket is working...');
 
-  io.emit('this', { will: 'be received by everyone'});
-
-  socket.on('private message', function (from, msg) {
-  console.log('I received a private message by ', from, ' saying ', msg);
-  socket.emit('rec_msg','client','lo mai aa gaya');
-  });
-
-
-  //Use 
-  socket.on('join', function (data) {
-    socket.join(data.email);
-    console.log('is joing :- '+data.email);
-    io.sockets.in('abhi@gmail.com').emit('new_msg', {msg: 'hello'});
-  });
-
-
- 
-
-
-  socket.on('disconnect', function () {
-  	console.log('socket disconnect...');
-    io.emit('user disconnected');
-  });
-});
 
 
 
